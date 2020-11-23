@@ -317,6 +317,76 @@
           "cart_ajax_enable": true,
           "cart_notes_enable": true
         }
+      },
+      "product-related": {
+        "type": "product-related",
+        "blocks": {
+          "02448be2-d552-4241-a66d-44e007a44f68": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-3"
+            }
+          },
+          "d139f131-3b7f-471f-8924-b72009646ac4": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-product"
+            }
+          },
+          "e180d6db-4015-41dd-ae42-504ec9e9fe86": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-sh"
+            }
+          },
+          "eec2aa48-2a61-4e77-a23f-1f1153945d8a": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-product"
+            }
+          }
+        },
+        "block_order": [
+          "02448be2-d552-4241-a66d-44e007a44f68",
+          "d139f131-3b7f-471f-8924-b72009646ac4",
+          "e180d6db-4015-41dd-ae42-504ec9e9fe86",
+          "eec2aa48-2a61-4e77-a23f-1f1153945d8a"
+        ],
+        "settings": {}
+      },
+      "task-customize": {
+        "type": "task-customize",
+        "blocks": {
+          "ee461bfd-75d9-45f1-8047-a520d4b051ce": {
+            "type": "quote",
+            "settings": {
+              "content": "Label 1",
+              "content_url": "shopify:\/\/pages\/label-1",
+              "content_page": "Page Lable 1",
+              "image_page": "shopify:\/\/shop_images\/rack-of-womens-clothing.jpg"
+            }
+          },
+          "82b9162e-9a6a-4b9f-8ecf-6de209cfdbeb": {
+            "type": "quote",
+            "settings": {
+              "content": "Label 2",
+              "content_url": "shopify:\/\/pages\/label-2",
+              "content_page": "Page Label 2",
+              "image_page": "shopify:\/\/shop_images\/man-standing-alone-on-a-snowy-hill.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "ee461bfd-75d9-45f1-8047-a520d4b051ce",
+          "82b9162e-9a6a-4b9f-8ecf-6de209cfdbeb"
+        ],
+        "settings": {}
+      },
+      "test-header": {
+        "type": "test-header",
+        "settings": {
+          "header_menu": "main-menu"
+        }
       }
     },
     "content_for_index": [
