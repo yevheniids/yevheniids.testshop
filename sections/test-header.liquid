@@ -1,0 +1,163 @@
+<style>
+  .header__menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100%;
+    background-color: silver;
+    left: 100%;
+    padding-top: 50px;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    transition: all 1s ease;
+    width: 50%;
+    text-align: center;
+  }
+
+  .header__menu--active .header__menu {
+    left: 0;
+    width: 50%;
+    text-align: center;
+    top: 0;
+    z-index: 90;
+  }
+
+  .header__menuSecond {
+    background-color: pink;
+  }
+
+  .header__menuThird {
+    background: greenyellow;
+  }
+
+  .header__menuEvent {
+    background: black;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    z-index: 100;
+    transition: all 1s ease;
+  }
+
+  .header__menu--active .header__menuEvent {
+    background-color: transparent;
+  }
+  .header__menu--active {
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 80;
+    top: 0;
+    transition: all 1s ease;
+  }
+
+  .header__menuLines,
+  .header__menuLines:after,
+  .header__menuLines:before {
+    position: absolute;
+    width: 20px;
+    height: 3px;
+    background-color: #fff;
+  }
+
+  .header__menu--active .header__menuLines {
+    background-color: transparent;
+  }
+
+  .header__menu--active .header__menuLines:after {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .header__menu--active .header__menuLines:before {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  .header__menuLines {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .header__menuLines:after {
+    content: '';
+    top: -6px;
+  }
+
+  .header__menuLines:before {
+    content: '';
+    top: 6px;
+  }
+
+
+</style>
+
+{% assign menuHeader = linklists[section.settings.header_menu] %}
+
+<div class="header__menuWrapper">
+  <a href="#" class="header__menuEvent">
+    <span class="header__menuLines"></span>
+  </a>
+  <ul class="header__menu">
+    {% for itemMenu in menuHeader.links %}
+      <li><a href="{{ itemMenu.url }}">{{ itemMenu.title }}</a>
+        {% if itemMenu.links != blank %}
+        <ul class="header__menuSecond">
+            {% for itemMenu2 in itemMenu.links %}
+              <li><a href="{{ itemMenu2.url }}">{{ itemMenu2.title }}</a>
+                {% if itemMenu2.links != blank %}
+                  <ul class="header__menuThird">
+                    {% for itemMenu3 in itemMenu2.links %}
+                      <li><a href="{{ itemMenu3.url }}">{{ itemMenu3.title }}</a>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+  let headerMenu = document.querySelector('.header__menuWrapper');
+  let headerEvent = document.querySelector('.header__menuEvent');
+  let menuList = document.querySelector('.header__menu');
+
+  headerEvent.addEventListener('click', event => {
+    headerMenu.classList.toggle('header__menu--active');
+
+    if (headerMenu.classList.contains('header__menu--active')) {
+      document.querySelector('body').style.overflow = 'hidden';
+    } else {
+      document.querySelector('body').style.overflow = 'auto';
+    }
+  });
+
+  document.addEventListener('click', event => {
+    if (event.target === headerEvent || event.target === headerMenu) {
+      headerMenu.classList.remove('header__menu--active');
+    }
+  })
+</script>
+
+{% schema %}
+  {
+    "name": "Header menu",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "header_menu",
+        "label": "Header menu"
+      }
+    ]
+  }
+{% endschema %}

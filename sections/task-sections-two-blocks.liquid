@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <div class="cardList">
+    {% for block1 in section.blocks %}
+      <div class="card">
+        <div class="cardText">{{ block1.settings.textID }}</div>
+        <img src="{{ block1.settings.imageID | img_url: '200x' }}" alt="">
+      </div>
+    {% endfor %}
+    {% for block2 in section.blocks %}
+      <div class="card">
+        <div class="cardText">{{ block2.settings.productID }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+
+{
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        {
+          "type": "text",
+          "id": "textID",
+          "label": "text"
+        },
+        {
+          "type": "image_picker",
+          "id": "imageID",
+          "label": "image"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "text",
+      "settings": [
+        {
+          "type": "product",
+          "id": "productID",
+          "label": "product"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

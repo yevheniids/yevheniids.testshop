@@ -1,0 +1,39 @@
+{% for item in section.blocks %}
+  {% if page.url == item.settings.content_url %}
+    <p>{{ item.settings.content_page }}</p>
+    <img src="{{ item.settings.image_page | img_url: '1200x' }}" alt="{{ page.title }}">
+  {% endif %}
+{% endfor %}
+
+{% schema %}
+  {
+    "blocks": [
+      {
+        "type": "quote",
+        "name": "Page",
+        "settings": [
+          {
+            "id": "content",
+            "type": "text",
+            "label": "Text"
+          },
+          {
+            "id": "content_url",
+            "type": "url",
+            "label": "Url"
+          },
+          {
+            "id": "content_page",
+            "type": "text",
+            "label": "Text page"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_page",
+            "label": "Image page"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,89 @@
+<div class="page-width feature-row">
+  {% capture image_layout %}
+    {% if section.settings.image != blank %}
+     <img src="{{section.settings.image | img_url: '1024x768'}}" alt="">
+    {% endif %}
+  {% endcapture %}
+  <div class="page-width feature-row index__image-block">
+      {% if section.settings.layout == 'left' %}
+        <div class="index__image-item">{{ image_layout }}</div> 
+      {% endif %}
+    <div class="index__image-desc">
+        {% if section.settings.title != blank %}
+          <h1 class="index__image-head">{{section.settings.title}}</h1>
+        {% endif %}
+      {% if section.settings.text != blank %} 
+        {{section.settings.text}}
+      {% endif %}
+    </div>
+      {% if section.settings.layout == 'right' %}
+        <div class="index__image-item">{{ image_layout }}</div>
+      {% endif %}
+  </div>
+</div>
+  
+  
+  {% schema %}
+  {
+    "name": {
+      "en": "Index Image with text"
+    },
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": {
+          "en": "Image"
+        }
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": {
+          "en": "Image alignment"
+        },
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": {
+              "en": "Left"
+            }
+          },
+          {
+            "value": "right",
+            "label": {
+              "en": "Right"
+            }
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": {
+          "en": "Title Image"
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": {
+          "en": "Text"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Task Image with text"
+        },
+        "category": {
+          "en": "Image"
+        }
+      }
+    ]
+  }
+  {% endschema %}
+  

@@ -1,0 +1,13 @@
+{%- comment -%}
+  Comments may not appear right after they are submitted, either to be checked by Shopify's spam filter
+  or to await moderation. When a comment is submitted, the browser is redirected to a page
+  that includes the new comment id in its URL.
+    Example: http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
+{%- endcomment -%}
+
+<p>{{ article.title }}</p>
+<img src="{{ article.image.src | img_url: '500x' }}" alt="{{ article.title }}">
+{% for tag in article.tags %}
+    {{ tag }} ({{ tag.total_count }})
+{% endfor %}
+{{ article.user.email }}

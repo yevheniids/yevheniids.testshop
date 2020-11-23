@@ -1,5 +1,98 @@
 {% comment %}
   The contents of the collection.liquid template can be found in /sections/collection-template.liquid
 {% endcomment %}
+{% comment %}
+  {% section 'collection-template' %}
+{% endcomment %}
 
-{% section 'collection-template' %}
+<style>
+  .catalog__listItems {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    text-align: center;
+  }
+
+  .catalog__listItems img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+</style>
+
+<div class="catalog__list">
+  <h1>{{ collection.title }}</h1>
+
+  <div class="catalog__listItems">
+    {% for collectionItem in collections %}
+      <div>
+        <a href="{{ collectionItem.url }}">
+          <p>{{ collectionItem.title }}</p>
+          <img src="{{ collectionItem.image | img_url: '1200x' }}" alt="{{ collectionItem.title }}">
+          <p>{{ collectionItem.description | truncate: 10 }}</p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  <ul>
+    {% for tag in collection.all_tags %}
+        {% if current_tags contains tag %}
+          <li>{{ tag | link_to_remove_tag: tag }}</li>
+        {% else %}
+          <li>{{ tag | link_to_add_tag: tag }}</li>
+        {% endif %}
+    {% endfor %}
+  </ul>
+
+
+  <div class="catalog__listItems">
+    {% paginate collection.products by 1 %}
+      {% for product in collection.products %}
+        <div>
+          <a href="{{ product.url }}">
+            <p>{{ product.title }}</p>
+            <img src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title }}">
+          </a>
+        </div>
+      {% endfor %}
+      {%- if paginate.pages > 1 -%}
+      <nav role="navigation">
+        <ol class="pagination">
+          {%- if paginate.previous -%}
+            <li><a href="{{ paginate.previous.url }}">Previous</a></li>
+          {%- else -%}
+            <li class="disabled">Previous</li>
+          {%- endif -%}
+
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <li>
+                <a href="{{ part.url }}">
+                  <span class="visuallyhidden"></span> {{ part.title }}
+                </a>
+              </li>
+            {%- else -%}
+              {%- if part.title == paginate.current_page -%}
+                <li class="active" aria-current="page">
+                  <span class="visuallyhidden"></span> {{ part.title }}
+                </li>
+              {%- else -%}
+                <li>
+                  <span class="visuallyhidden"></span> {{ part.title }}
+                </li>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if paginate.next -%}
+            <li><a href="{{ paginate.next.url }}">Next</a></li>
+          {%- else -%}
+            <li class="disabled">Next</li>
+          {%- endif -%}
+        </ol>
+      </nav>
+    {%- endif -%}
+    {% endpaginate %}
+  </div>
+</div>

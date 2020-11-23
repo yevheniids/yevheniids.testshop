@@ -1,9 +1,11 @@
 <div class="page-width">
-  <div class="section-header text-center">
-    <h1>{{ 'customer.account.title' | t }}</h1>
-    {{ 'layout.customer.log_out' | t | customer_logout_link }}
-  </div>
-
+  <h1>Hi, {{ customer.name }}</h1>
+  {%- comment -%}
+    <div class="section-header text-center">
+      <h1>{{ 'customer.account.title' | t }}</h1>
+      {{ 'layout.customer.log_out' | t | customer_logout_link }}
+    </div>
+  {%- endcomment -%}
   <div class="grid myaccount">
     <div class="grid__item myaccount__order-history">
       <h2>{{ 'customer.orders.title' | t }}</h2>
@@ -19,6 +21,7 @@
                 <th scope="col">{{ 'customer.orders.payment_status' | t }}</th>
                 <th scope="col">{{ 'customer.orders.fulfillment_status' | t }}</th>
                 <th scope="col">{{ 'customer.orders.total' | t }}</th>
+                <th scope="col">{{ 'customer.orders.status' | t }}</th>
               </tr>
             </thead>
             <tbody>
@@ -31,6 +34,7 @@
                   <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
                   <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
                   <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                  <th>{{ order.fulfillment_status }}</th>
                 </tr>
               {% endfor %}
             </tbody>

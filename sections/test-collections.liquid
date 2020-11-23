@@ -1,0 +1,25 @@
+{% for productBlock in section.blocks %}
+  <p>{{ all_products[productBlock.settings.productItem].title }}</p>
+  <img src="{{ all_products[productBlock.settings.productItem].featured_image | img_url: '2800x' }}" alt="{{ all_products[productBlock.settings.productItem].title }}">
+  <p>from {{ all_products[productBlock.settings.productItem].price_min | money }}</p>
+  <p>to {{ all_products[productBlock.settings.productItem].price_max | money }}</p>
+{% endfor %}
+
+{% schema %}
+{
+  "name": "productsSection",
+  "blocks": [
+    {
+      "type": "blocks",
+      "name": "productsBlock",
+      "settings": [
+        {
+          "id": "productItem",
+          "type": "product",
+          "label": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

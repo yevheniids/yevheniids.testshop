@@ -14,6 +14,8 @@
   </div>
 {% endif %}
 
+{% section 'products-card' %}
+
 <script>
   // Override default values of shop.strings for each template.
   // Alternate product templates can change values of
@@ -31,6 +33,7 @@
 {
   "@context": "http://schema.org/",
   "@type": "Product",
+  "@id": {{ canonical_url | append: '#product' | json }},
   "name": {{ product.title | json }},
   "url": {{ shop.url | append: product.url | json }},
   {%- if product.featured_media -%}

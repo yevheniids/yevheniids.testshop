@@ -1,0 +1,13 @@
+<div class="product__relatedItems">
+  {% for item in productsArray %}
+    <div class="product__related">
+      <a href="{{ all_products[item].url }}">
+        <img src="{{ all_products[item].featured_image | img_url: '600x' }}" alt="{{ all_products[item].title }}">
+        <div class="product__relatedInfo">
+          <p class="product__relatedTitle">{{ all_products[item].title }}</p>
+          <p class="product__relatedPrice">{{ all_products[item].price | money_without_trailing_zeros }}</p>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>

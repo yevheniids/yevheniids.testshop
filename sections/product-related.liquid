@@ -1,0 +1,33 @@
+<div class="product__relatedItems">
+  {% for block in section.blocks %}
+    {% assign relatedProduct = all_products[block.settings.productRelated] %}
+    <div class="product__related">
+      <a href="{{ relatedProduct.url }}">
+        <img src="{{ relatedProduct.featured_image | img_url: '600x' }}" alt="{{ relatedProduct.title }}">
+        <div class="product__relatedInfo">
+          <p class="product__relatedTitle">{{ relatedProduct.title }}</p>
+          <p class="product__relatedPrice">{{ relatedProduct.price | money_without_trailing_zeros }}</p>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "max_blocks": 4,
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "productRelated",
+            "label": "Related Product"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

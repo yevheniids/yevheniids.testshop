@@ -1,0 +1,161 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<style>
+  .productsPick {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+
+  .productsPick img {
+    width: 100%;
+  }
+
+  .popup-overlay {
+    visibility: hidden;
+    position: absolute;
+    background: #ffffff;
+    border: 3px solid #666666;
+    width: 50%;
+    left: 25%;
+    top: 20%;
+    z-index: 999;
+  }
+
+  .popup-overlay.active {
+    visibility: visible;
+    text-align: center;
+  }
+
+  .popup-content {
+    visibility: hidden;
+  }
+
+  .popup-content.active {
+    visibility: visible;
+  }
+
+  button {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 30px;
+    margin: .20rem;
+    font-size: 1rem;
+    color: #666666;
+    background: #ffffff;
+    border: 1px solid #666666;
+  }
+
+  button:hover {
+    border: 1px solid #666666;
+    background: #666666;
+    color: #ffffff;
+  }
+
+  .openBtnWrapper {
+    text-align: center;
+    margin-top: 40px;
+  }
+</style>
+
+
+<div class="popup-overlay">
+  <div class="popup-content">
+    <div class="productsPick">
+      {% for itemProduct in section.blocks %}
+        <div>
+          <p>{{ all_products[itemProduct.settings.productID].title }}</p>
+          <p>{{ all_products[itemProduct.settings.productID].variants.first.id }}</p>
+          <form method="post" action="/cart/add">
+            <input type="hidden" id="productID" name="id" value="{{ all_products[itemProduct.settings.productID].variants.first.id }}" />
+            <input min="1" type="number" id="quantity" name="quantity" value="1"/>
+            <button type="button" id="addToCart" class="btn">Add to cart</button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+    <button class="close">Close</button>
+  </div>
+</div>
+<div class="openBtnWrapper">
+  <button class="open">Open</button>
+</div>
+
+<script>
+  let addBtn = document.querySelectorAll('#addToCart');
+
+    addBtn.forEach(itemBtn => {
+      itemBtn.addEventListener('click', function(e) {
+        let parent = e.currentTarget.closest('form');
+        let productIDAttr = parent.querySelector('#productID').value;
+        let productQuantityAttr = parent.querySelector('#quantity').value;
+
+        let productMainIDAttr = document.querySelector('.mainProductID').value;
+        let productMainQuantityAttr = document.querySelector('.mainProductQuantity').value;
+
+        let formData = {
+            'items': [{
+              'id': parseInt(productIDAttr),
+              'quantity': parseInt(productQuantityAttr)
+            },{
+              'id': parseInt(productMainIDAttr),
+              'quantity': parseInt(productMainQuantityAttr)
+            }
+          ]
+        };
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+    });
+  });
+
+  let openPopUp = document.querySelector('.open');
+  let closePopUp = document.querySelector('.close');
+
+  openPopUp.addEventListener('click', function() {
+    let bodyPopUp = document.querySelector(".popup-overlay");
+    let bodyPopUpContent = document.querySelector(".popup-content");
+    bodyPopUp.classList.add("active");
+    bodyPopUpContent.classList.add("active");
+  });
+
+  closePopUp.addEventListener('click', function() {
+    let bodyPopUp = document.querySelector(".popup-overlay");
+    let bodyPopUpContent = document.querySelector(".popup-content");
+    bodyPopUp.classList.remove("active");
+    bodyPopUpContent.classList.remove("active");
+  });
+
+  // $(".open").on("click", function() {
+  //   $(".popup-overlay, .popup-content").addClass("active");
+  // });
+
+  // $(".close").on("click", function() {
+  //   $(".popup-overlay, .popup-content").removeClass("active");
+  // });
+</script>
+
+{% schema %}
+  {
+    "max_blocks": 4,
+    "blocks": [
+      {
+        "name": "productsPick",
+        "type": "blocks",
+        "settings": [
+          {
+            "id": "productID",
+            "label": "product",
+            "type": "product"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

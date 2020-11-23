@@ -1,0 +1,57 @@
+<style>
+  .wrapper  {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .product__variantImage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    align-items: center;
+    font-size: 26px;
+  }
+
+  .product__variantImage img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+</style>
+
+<div class="wrapper">
+  <h1>{{ product.title }}</h1>
+  <img src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title }}">
+  <p>Description: {{ product.description | upcase }}</p>
+  <p>Handle: {{ product.handle }}</p>
+  <p>ID: {{ product.id }}</p>
+  <div class="product__variantImage">
+    <p>Product images:</p>
+    {% for itemImg in product.images %}
+      <img src="{{ itemImg | img_url: '1200x' }}" alt="{{ product.title }}">
+    {% endfor %}
+  </div>
+  <div>
+    <p>Product otions: {{ product.options.size }}</p>
+    {% for option in product.options %}
+        {{ option }}
+    {% endfor %}
+  </div>
+  <p>Price: {{ product.price | money }}</p>
+  <p>From: {{ product.price_min | money }} To: {{ product.price_max | money }}</p>
+  <p>Published at: {{ product.published_at }}</p>
+  {% for variants in product.variants %}
+    <p>Price {{ variants.price | money }} - SKU {{ variants.sku }}</p>
+  {% endfor %}
+  <p>Vendor {{ product.vendor }}</p>
+</div>
+
+{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+
+{% for variant in product.variants %}
+    <p>{{ variant.store_availabilities }}</p>
+    <script>
+      console.log({{ variant.store_availabilities | json }})
+    </script>
+{% endfor %}

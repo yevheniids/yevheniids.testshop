@@ -5,6 +5,7 @@
   data-enable-history-state="true"
   data-ajax-enabled="{{ settings.enable_ajax }}"
 >
+
   {% comment %}
     Get first variant, or deep linked one
   {% endcomment %}
@@ -135,6 +136,7 @@
       <div class="product-single__meta">
 
         <h1 class="product-single__title">{{ product.title }}</h1>
+
         <script>window.performance.mark('debut:product:title_visible');</script>
 
           <div class="product__price">
@@ -158,6 +160,10 @@
             {%- if current_variant.available == false %} product-form--variant-sold-out {%- endif -%}
           {%- endcapture %}
 
+          {% for item in product.variants %}
+            <h1>{{ item.title }} - {{ item.price | money }}</h1>
+          {% endfor %}
+
           {% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}
             {% unless product.has_only_default_variant %}
               <div class="product-form__controls-group">
@@ -166,12 +172,15 @@
                     <label for="SingleOptionSelector-{{ forloop.index0 }}">
                       {{ option.name }}
                     </label>
+                    <script>
+                      console.log({{ product | json}});
+                    </script>
                     <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input"
                       id="SingleOptionSelector-{{ forloop.index0 }}"
                       data-index="option{{ forloop.index }}"
                     >
                       {% for value in option.values %}
-                        <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                        <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }} - </option>
                       {% endfor %}
                     </select>
                   </div>
@@ -188,6 +197,8 @@
                 </option>
               {% endfor %}
             </select>
+            <input type="text" class="mainProductID" value="{{ product.selected_or_first_available_variant.id }}">
+            <input type="number" class="mainProductQuantity" value="1">
 
             {% if section.settings.show_quantity_selector %}
               <div class="product-form__controls-group">

@@ -1,0 +1,51 @@
+{% assign menu = linklists[section.settings.nav_test] %}
+{% assign menu2 = linklists["menu2"] %}
+
+<div>
+  <ul class="menu-level-first">
+    {% for menu_item in menu.links %}
+      <li><a {% if menu_item.active %} class="active" {% endif %} href="{{ menu_item.url }}">{{ menu_item.title }}</a>
+        {% if menu_item.links != blank %}
+          <ul class="child menu-level2">
+            {% for menu-level2 in menu_item.links %}
+              <li><a {% if menu-level2.active %} class="active" {% endif %}
+                href="{{ menu-level2.url }}">{{ menu-level2.title }}</a>
+              {% if menu_item.links != blank %}
+                <ul class="child menu-level3">
+                  {% for menu-level3 in menu-level2.links %}
+                    <li><a {% if menu-level3.active %} class="active" {% endif %}
+                        href="{{ menu-level3.url }}">{{ menu-level3.title }}</a>
+                        {% if menu2 != blank %}
+                          <ul class="child menu-level4">
+                            {% for menu-level4 in menu2.links %}
+                              <li><a href="{{ menu-level4.url }}">{{ menu-level4.title }}</a></li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                  {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% schema %}
+  {
+    "name": "test-menu",
+    "class": "test-nav",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "nav_test",
+        "label": "nav_label"
+      }
+    ]
+  }
+{% endschema %}

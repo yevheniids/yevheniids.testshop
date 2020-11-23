@@ -1,0 +1,6 @@
+<div class="holiday__productsContainer">
+  {% for item in products_array %}
+    {% assign currentProduct = all_products[item] %}
+    {% render 'product-card-list', product: currentProduct, productImage: productImageArray[forloop.index0] %}
+  {% endfor %}
+</div>

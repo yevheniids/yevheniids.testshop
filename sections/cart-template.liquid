@@ -217,6 +217,14 @@
                   <span data-cart-item-regular-price>{{ item.original_line_price | money }}</span>
                 </div>
               </td>
+              <script>
+                console.log({{ item | json }});
+              </script>
+              <td>
+                <a href="/cart/change?id={{ item.key }}&quantity={{ item.quantity | minus: 1 }}" rel="{{ item.id }}">-</a>
+                <a href="/cart/change?id={{ item.key }}&quantity=0" rel="{{ item.id }}">Remove Item</a>
+                <a href="/cart/change?id={{ item.key }}&quantity={{ item.quantity | plus: 1 }}" rel="{{ item.id }}">+</a>
+              </td>
             </tr>
           {%- endfor -%}
         </tbody>

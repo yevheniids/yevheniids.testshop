@@ -1,0 +1,185 @@
+<style>
+  /* Для Chrome */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0;
+  }
+  /* Для Firefox */
+  input[type=number]{
+    -moz-appearance: textfield;
+  }
+</style>
+
+<div class="product">
+  <div class="product__wrapper">
+    <div class="productwrapperContent">
+      <div class="product__images productImages">
+        {% for productImage in product.images %}
+          <img src="{{ productImage.src | img_url: '1200x' }}" alt="{{ product.title }}">
+        {% endfor %}
+      </div>
+      <div class="product__info">
+        <p class="product__infoType">{{ product.type }}</p>
+        <h1 class="product__infoTitle">{{ product.title }}</h1>
+        <p class="product__infoDescription">{{ product.content }}</p>
+        <div class="product__infoPrice">
+          <p class="product__infoPriceItem">{{ product.price | money_without_trailing_zeros }}</p>
+          <p class="product__infoPriceStatus">
+            {% if product.available %}
+              <span class="product__infoPriceAvailable">Available</span>
+            {% else %}
+              <span class="product__infoPriceOutStock">Out of stock</span>
+            {% endif %}
+          </p>
+        </div>
+        <div class="product__infoVariants">
+          <select class="poduct__select">
+            {% for variant in product.variants %}
+              <option id="variant" class="product__infoVariantsItem" data-variant="{{ variant.id }}">{{ variant.title }}</option>
+            {% endfor %}
+          </select>
+          <div class="product__prodpown">
+            <button class="product__prodpownEvent" data-variant="{{ variant.id }}">Select size</button>
+            <ul class="product__prodpownList">
+              {% for variant in product.variants %}
+                <li class="product__prodpownVariant" data-variant="{{ variant.id }}">{{ variant.title }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="product__form">
+          <form action="/cart/add" method="post">
+            <input type="hidden" name="id" />
+            <div class="quantity__block">
+              <input type="button" value="-" class="quantity__blockArrowMinus">
+              <input class="product__formQuantity" type="number" name="quantity" min="1" value="1" />
+              <input type="button" value="+" class="quantity__blockArrowPlus">
+            </div>
+            <button type="button" class="product__addToCart">Add to basket</button>
+          </form>
+        </div>
+        <div class="product__spoiler">
+          <p class="product__spoilerTitle">Title 1</p>
+          <p class="product__spoilerDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor eos magni, obcaecati labore ullam nisi laboriosam autem beatae quo, dolorum error perferendis cupiditate exercitationem aperiam molestias, adipisci dignissimos dolores reiciendis?</p>
+        </div>
+        <div class="product__spoiler">
+          <p class="product__spoilerTitle">Title 2</p>
+          <p class="product__spoilerDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor eos magni, obcaecati labore ullam nisi laboriosam autem beatae quo, dolorum error perferendis cupiditate exercitationem aperiam molestias, adipisci dignissimos dolores reiciendis?</p>
+        </div>
+      </div>
+      </div>
+      <p class="product__relatedHead--green">RELATED PRODUCTS</p>
+      <p class="product__relatedHead">PEOPLE ALSO LOVED</p>
+      {% section 'product-related' %}
+      {% render 'sketch-product', productsArray: product.metafields.relatedProducts.product %}
+  </div>
+</div>
+
+
+<script>
+  let addToCart = document.querySelector('.product__addToCart');
+  let optionQuantity = document.querySelector('.product__formQuantity').value;
+  let optionQuantityItem = document.querySelector('.product__formQuantity');
+
+  addToCart.addEventListener('click', function() {
+    let optionVariant = document.querySelector('.poduct__select');
+    let optionPosition = optionVariant.options[optionVariant.selectedIndex].dataset.variant;
+
+    console.log(optionPosition, optionQuantity);
+
+    let formData = {
+        'items': [{
+          'id': parseInt(optionPosition),
+          'quantity': parseInt(optionQuantity)
+        }
+      ]
+    };
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (response.status == 200) {
+        console.log("Опа, ты добаавил товар");
+      } else {
+        throw new Error();
+      }
+    })
+    .catch(err => console.log('Опа, или не опа...'));
+
+  });
+
+  let spoilerItem = document.querySelectorAll('.product__spoilerTitle');
+
+  spoilerItem.forEach(spoilerBtn => {
+    spoilerBtn.addEventListener('click', event => {
+      let spoilerBody = event.currentTarget.closest('.product__spoiler');
+      let spoilerContent = document.querySelector('.product__spoilerDescription');
+
+      if (spoilerBody.classList.contains("product__spoiler--active")) {
+        spoilerBody.classList.remove("product__spoiler--active");
+        spoilerContent.style.height = "0";
+      } else {
+        spoilerBody.classList.add("product__spoiler--active");
+        spoilerContent.style.height = spoilerContent.scrollHeight + "px";
+      }
+    });
+  });
+
+  let addToCartPlus = document.querySelector('.quantity__blockArrowPlus');
+
+  addToCartPlus.addEventListener('click', event => {
+    optionQuantity++;
+    optionQuantityItem.value = optionQuantity;
+  });
+
+  let addToCartMinus = document.querySelector('.quantity__blockArrowMinus');
+
+  addToCartMinus.addEventListener('click', event => {
+    if (optionQuantity > 1) {
+      optionQuantity--;
+      optionQuantityItem.value = optionQuantity;
+    }
+  });
+
+  let selectVariants = document.querySelector('.product__infoVariants');
+  let selectAllVariants = document.querySelectorAll('.product__infoVariantsItem');
+
+  selectVariants.addEventListener('mousedown', event => {
+    event.preventDefault();
+  });
+
+  //Dropdown list
+
+  let dropdownEvent = document.querySelector('.product__prodpownEvent');
+  let dropdownList = document.querySelector('.product__prodpownList');
+  let dropdownVariant = document.querySelectorAll('.product__prodpownVariant');
+  let productSelect = document.querySelector('.poduct__select');
+
+  dropdownEvent.addEventListener('click', event => {
+    dropdownList.classList.toggle('product__prodpownList--visible');
+  });
+
+  dropdownVariant.forEach(element => {
+    element.addEventListener('click', event => {
+      productSelect.options[productSelect.selectedIndex].innerText = element.innerText;
+      dropdownEvent.dataset.variant = element.dataset.variant;
+      dropdownEvent.innerText = element.innerText;
+      dropdownList.classList.remove('product__prodpownList--visible');
+    })
+  });
+
+  document.addEventListener('click', event => {
+    if (event.target !== dropdownEvent) {
+      dropdownList.classList.remove('product__prodpownList--visible');
+    }
+  })
+
+</script>

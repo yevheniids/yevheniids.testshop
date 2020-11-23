@@ -12,6 +12,8 @@
       {% endif %}
 
       <div class="contact-form form-vertical">
+        {%- comment -%}
+
         {%- assign formId = 'ContactForm' -%}
         {% form 'contact', id: formId %}
           {% include 'form-status', form: form, form_id: formId %}
@@ -56,6 +58,88 @@
           <input type="submit" class="btn" value="{{ 'contact.form.submit' | t }}">
 
         {% endform %}
+        {%- endcomment -%}
+
+        {% style %}
+          .form__head {
+            text-align: center;
+            font-weight: bold;
+            color: red;
+            font-size: 36px;
+          }
+        {% endstyle %}
+
+        <div class="metafields__productsList">
+          {% render 'metafield-product', products_array: page.metafields.pageSection.productItem, productImageArray: page.metafields.pageSection.productImage %}
+        </div>
+
+        <p class="form__head">Contact form</p>
+        {% form 'contact' %}
+          <label for="first_name">First Name</label>
+          <input type="text" value="" required name="customer[first_name]" size="30" />
+
+          <label for="email">Email Address</label>
+          <input type="email" value="" name="customer[email]" size="30" />
+
+          <input type="submit" value="Contact" />
+        {% endform %}
+
+        <p class="form__head">Registration</p>
+        {% form 'create_customer' %} {{ form.errors | default_errors }}
+          <label for="first_name">First Name</label>
+          <input type="text" value="" required name="customer[first_name]" size="30" />
+
+          <label for="last_name">Last Name</label>
+          <input type="text" value="" name="customer[last_name]" size="30" />
+
+          <label for="email">Email Address</label>
+          <input type="email" value="" name="customer[email]" size="30" />
+
+          <label for="password">Password</label>
+          <input type="password" value="" name="customer[password]" size="30" />
+
+          <input type="submit" value="Create" />
+        {% endform %}
+
+        <p class="form__head">Auth</p>
+        {% form 'customer_login' %}
+        <div>
+          <label for="customerEmail">Email Address</label>
+          <input type="email"
+            name="customer[email]"
+            id="customerEmail"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email">
+        </div>
+        <div>
+          <label for="customerPassword">Password</label>
+          <input type="password"
+            name="customer[password]"
+            id="customerPassword">
+        </div>
+        <input type="submit" value="Auth" />
+        {% endform %}
+
+        <p class="form__head">Remember form</p>
+        {% form 'reset_customer_password' %}
+        <div>
+          <label for="customerEmail">Email Address</label>
+          <input type="email"
+            name="customer[email]"
+            id="customerEmail"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email">
+        </div>
+        <input type="submit" value="Remember" />
+        {% endform %}
+
+        {% if customer.has_account %}
+          <p>Hi, {{ customer.name }}</p>
+          <p><a href="{{ routes.account_url }}">Go to account</a></p>
+        {% endif %}
+
       </div>
     </div>
   </div>

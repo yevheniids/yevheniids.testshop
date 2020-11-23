@@ -1,0 +1,44 @@
+{% assign product = all_products[section.settings.product_id] %}
+<div class="test__section test__section--{{ section.settings.section__select }}">
+  {% if aproduct.title != blank or product.description != blank %}
+    <div class="test__section--description">
+      {% if product.title != blank %}
+        <h1>{{ product.title }}</h1>
+      {% endif %}
+      {% if product.description != blank %}
+        <p>{{ product.description }}</p>
+      {% endif %}
+      <p>From {{ product.price_min | money }}</p>
+      <p>To {{ product.price_max | money }}</p>
+      <p><a href="{{ product.url }}">More</a></p>
+    </div>
+  {% endif %}
+    {% if product.featured_image != blank %}
+    <div class="test__section--image">
+        <img src="{{ product.featured_image | img_url: "1200x" }}" alt="">
+    </div>
+    {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "test-section",
+    "class": "opa",
+    "settings": [
+      {
+        "type": "product",
+        "label": "Product",
+        "id": "product_id"
+      },
+      {
+        "type": "select",
+        "id": "section__select",
+        "options": [
+          {"value": "left", "label": "image_left"},
+          {"value": "right", "label": "image__right"}
+        ],
+        "label": "Image side"
+      }
+    ]
+  }
+{% endschema %}
