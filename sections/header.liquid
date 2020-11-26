@@ -244,6 +244,7 @@
         {% endfor %}
       </ul>
     </nav>
+    {% render 'mega-menu' %}
   </header>
 
   {% if section.settings.align_logo == 'center' %}
@@ -730,6 +731,32 @@
         "zh-TW": "文字"
       },
       "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Menu block",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "megaMenuItem",
+          "label": "menu"
+        },
+        {
+          "type": "image_picker",
+          "id": "megaMenuImage",
+          "label": "image"
+        }
+      ]
+    }
+  ],
+  "name": "main-megaMenu",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main-megaMenu",
+      "label": "nav_label"
     }
   ]
 }

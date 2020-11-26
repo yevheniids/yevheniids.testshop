@@ -26,3 +26,95 @@
         font-weight: bold;
     }
 }
+
+.mainMegaMenu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px 0;
+    position: relative;
+
+    .mainManuItem {
+        > a {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0 20px;
+        }
+
+        &:hover {
+            .megaMenu__wrapper {
+                visibility: unset;
+            }
+        }
+
+        .megaMenu__wrapper {
+            position: absolute;
+            visibility: hidden;
+            text-align: center;
+            background-color: green;
+            z-index: 20;
+            width: 100%;
+            left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            img {
+                width: 200px;
+                height: 200px;
+                object-fit: cover;
+                margin-left: 50px;
+            }
+
+            .megaMenu__block {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                width: calc(100% - 250px);
+            }
+        }
+    }
+}
+
+.product__circle--pink {
+    width: 100px;
+    height: 100px;
+    margin: 30px 0;
+    border-radius: 50%;
+    background-color: pink;
+    position: relative;
+    // animation-name: product__circle;
+    // animation-duration: 2s;
+    // animation-timing-function: linear;
+    // animation-iteration-count: infinite;
+    // animation-direction: alternate-reverse;
+    animation: circle--white  2s linear infinite alternate-reverse, circle--green  2s linear infinite alternate-reverse;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes circle--white {
+    0% {
+        left: 0;
+    }
+    50% {
+        border-radius: 0;
+    }
+    100% {
+        left: calc(100% - 100px);
+    }
+}
+
+@keyframes circle--green {
+    0% {
+        background-color: pink;
+    }
+    50% {
+        background-color: greenyellow;
+    }
+    100% {
+        background-color: pink;
+    }
+}
