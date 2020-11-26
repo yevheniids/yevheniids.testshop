@@ -1,0 +1,31 @@
+<div class="navigation__megaMenu">
+  <ul class="mainMegaMenu">
+    {% assign menuItem = linklists[section.settings.main-megaMenu] %}
+    {% for menu in menuItem.links %}
+      {% assign current_link = menu.title | handleize | escape %}
+      <li class="mainManuItem"><a href="{{ menu.url }}">{{ menu.title }}</a>
+        {% for block in section.blocks %}
+          {% if current_link == block.settings.megaMenuItem %}
+            <div class="megaMenu__wrapper">
+              <ul class="megaMenu__block">
+                {% assign megaMenu = linklists[block.settings.megaMenuItem] %}
+                {% for itemMenu in megaMenu.links %}
+                  <li><a href="{{ itemMenu.url }}">{{ itemMenu.title }}</a>
+                    <ul class="megaMenu__secondMenu">
+                      {% for itemMenu2 in itemMenu.links %}
+                        <li><a href="{{ itemMenu2.url }}">{{ itemMenu2.title }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% endfor %}
+              </ul>
+              {% if block.settings.megaMenuImage != blank %}
+                <img src="{{ block.settings.megaMenuImage | img_url: '600x' }}" alt="">
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </li>
+    {% endfor %}
+    </ul>
+</div>

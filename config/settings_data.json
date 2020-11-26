@@ -3,15 +3,36 @@
     "sections": {
       "header": {
         "type": "header",
+        "blocks": {
+          "9b21f2ad-2b33-47b3-a857-1fac45c9dad0": {
+            "type": "quote",
+            "settings": {
+              "megaMenuItem": "mega-menu-1",
+              "megaMenuImage": "shopify:\/\/shop_images\/man-standing-alone-on-a-snowy-hill.jpg"
+            }
+          },
+          "619d73db-d62c-4496-806b-8e585bef90d6": {
+            "type": "quote",
+            "settings": {
+              "megaMenuItem": "mega-menu-2",
+              "megaMenuImage": "shopify:\/\/shop_images\/rack-of-womens-clothing.jpg"
+            }
+          },
+          "4bd1fc5b-8253-49b6-9c13-85d9d57ebeb7": {
+            "type": "quote",
+            "settings": {
+              "megaMenuItem": "mega-menu-3",
+              "megaMenuImage": "shopify:\/\/shop_images\/rack-of-womens-clothing.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "9b21f2ad-2b33-47b3-a857-1fac45c9dad0",
+          "619d73db-d62c-4496-806b-8e585bef90d6",
+          "4bd1fc5b-8253-49b6-9c13-85d9d57ebeb7"
+        ],
         "settings": {
-          "align_logo": "left",
-          "logo_max_width": 100,
-          "main_linklist": "main-menu",
-          "message": false,
-          "home_page_only": true,
-          "message_text": "Announce something here",
-          "color_bg": "#3a3a3a",
-          "color_text": "#ffffff"
+          "main-megaMenu": "main-mega-menu"
         }
       },
       "hero-1": {
@@ -316,6 +337,76 @@
         "settings": {
           "cart_ajax_enable": true,
           "cart_notes_enable": true
+        }
+      },
+      "product-related": {
+        "type": "product-related",
+        "blocks": {
+          "02448be2-d552-4241-a66d-44e007a44f68": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-3"
+            }
+          },
+          "d139f131-3b7f-471f-8924-b72009646ac4": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-product"
+            }
+          },
+          "e180d6db-4015-41dd-ae42-504ec9e9fe86": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-sh"
+            }
+          },
+          "eec2aa48-2a61-4e77-a23f-1f1153945d8a": {
+            "type": "product",
+            "settings": {
+              "productRelated": "test-product"
+            }
+          }
+        },
+        "block_order": [
+          "02448be2-d552-4241-a66d-44e007a44f68",
+          "d139f131-3b7f-471f-8924-b72009646ac4",
+          "e180d6db-4015-41dd-ae42-504ec9e9fe86",
+          "eec2aa48-2a61-4e77-a23f-1f1153945d8a"
+        ],
+        "settings": {}
+      },
+      "task-customize": {
+        "type": "task-customize",
+        "blocks": {
+          "ee461bfd-75d9-45f1-8047-a520d4b051ce": {
+            "type": "quote",
+            "settings": {
+              "content": "Label 1",
+              "content_url": "shopify:\/\/pages\/label-1",
+              "content_page": "Page Lable 1",
+              "image_page": "shopify:\/\/shop_images\/rack-of-womens-clothing.jpg"
+            }
+          },
+          "82b9162e-9a6a-4b9f-8ecf-6de209cfdbeb": {
+            "type": "quote",
+            "settings": {
+              "content": "Label 2",
+              "content_url": "shopify:\/\/pages\/label-2",
+              "content_page": "Page Label 2",
+              "image_page": "shopify:\/\/shop_images\/man-standing-alone-on-a-snowy-hill.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "ee461bfd-75d9-45f1-8047-a520d4b051ce",
+          "82b9162e-9a6a-4b9f-8ecf-6de209cfdbeb"
+        ],
+        "settings": {}
+      },
+      "test-header": {
+        "type": "test-header",
+        "settings": {
+          "header_menu": "main-menu"
         }
       }
     },

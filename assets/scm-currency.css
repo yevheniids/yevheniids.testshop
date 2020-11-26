@@ -1,0 +1,58 @@
+.sca-currency-top-right {
+    top: 25px !important;
+    right: 25px !important;
+    position: fixed !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+    outline: 0 !important;
+    z-index: 999999999999999999999 !important;
+}
+
+.sca-currency-top-left {
+    top: 25px !important;
+    left: 25px !important;
+    position: fixed !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+    outline: 0 !important;
+    z-index: 999999999999999999999 !important;
+}
+
+.sca-currency-bottom-right {
+    bottom: 25px !important;
+    right: 25px !important;
+    position: fixed !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+    outline: 0 !important;
+    z-index: 999999999999999999999 !important;
+}
+
+.sca-currency-bottom-left {
+    bottom: 25px !important;
+    left: 25px !important;
+    position: fixed !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+    outline: 0 !important;
+    z-index: 999999999999999999999 !important;
+}
+
+.sca-body-currency.sca-currency-bottom-right .sca-currency-style .cs-options{
+    bottom: 30px !important;
+    width: 100% !important;
+}
+
+.sca-body-currency.sca-currency-bottom-left .sca-currency-style .cs-options{
+    bottom: 30px !important;
+    width: 100% !important;
+}
+
+/* Fix display on theme Jumpstart */
+.sca-body-currency .sca-currency-style .jumpstart-selector{
+    display : block !important;
+}
+.sca-body-currency .sca-currency-style .jumpstart-selector .arrow{
+    border-left : none !important;
+}
+

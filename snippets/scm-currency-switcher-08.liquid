@@ -1,0 +1,35 @@
+{{ "classie.js" | asset_url | script_tag }}                {{ "cs-skin-elastic.css" | asset_url | stylesheet_tag }}                {{ "selectFx.js" | asset_url | script_tag }}                    
+    <style>
+        {% for currencyIndex in (0..currencySize) %}
+        {% assign currencyCode = currencyCodes[currencyIndex] %}
+        .cs-skin-elastic .cs-options li.flag-{{ currencyCode }} span {
+             background-image: url(//cdn.secomapp.com/currency_switcher/assets/img/flags/{{ currencyCode | downcase }}.png);
+         }
+        .cs-skin-elastic span.flag-{{ currencyCode }} {
+            background-image: url(//cdn.secomapp.com/currency_switcher/assets/img/flags/{{ currencyCode | downcase }}.png);
+        }
+        .cs-placeholder {
+            background-position: 10px 50% !important;
+            background-repeat: no-repeat !important;
+            background-size: 2em auto !important;
+            padding: 9px 0 8px 43px !important;
+            font-size: 12px !important;
+            line-height: 18px;
+        }
+        {% endfor %}
+    </style>
+
+    <div class="sca-body-currency">
+                <div class="sca-currency-style">
+                <select id="currencies" name="currencies" class="cs-select cs-skin-elastic" style="display: none;">
+                    <option value="{{ defaultCurrencyCode }}" data-class="flag-{{ defaultCurrencyCode }}" selected="selected">{{ defaultCurrencyCode }}</option>
+                    {% for currencyIndex in (0..currencySize) %}
+                    {% assign currencyCode = currencyCodes[currencyIndex] %}
+                    {% if currencyCode != defaultCurrencyCode %}
+                    <option value="{{ currencyCode }}" data-class="flag-{{ currencyCode }}">{{ currencyCode }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="clear-both"></div>
+    </div>

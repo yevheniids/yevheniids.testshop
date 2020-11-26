@@ -1,0 +1,11 @@
+{{ page_title }} - Page: {{ current_page }}
+{% assign policy = shop.privacy_policy %}
+
+{% for policy in shop.policies %}
+  <p style="margin-bottom: 0; border-bottom: 1px solid greenyellow; padding: 0 10px;"><a href="{{ policy.url }}">{{ policy.title }}</a></p>
+{% endfor %}
+{% for locale in shop.published_locales %}
+  <p style="margin: 10px 0;">{{ locale.name }} - ({{ locale.iso_code }})</p>
+{% endfor %}
+<p style="margin: 0;">Theme id: {{ theme.id }} - Theme name: {{ theme.name }}</p>
+<p style="margin: 10px 0;">Template name: {{ template.name }}</p>

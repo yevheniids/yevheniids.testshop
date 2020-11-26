@@ -89,7 +89,7 @@
     {{ base_font_italic | font_face: font_display: 'swap' }}
     {{ base_font_bold_italic | font_face: font_display: 'swap' }}
   </style>
-
+  {% render 'fonts-css' %}
   <script>
     var theme = {
       breakpoints: {
@@ -181,8 +181,8 @@
   {%- endif -%}
 
   {% section 'header' %}
-  <p>123</p>
   {% section 'test-header' %}
+  <div class="lottie" style="width: 60px; margin: auto;"></div>
 
   <div class="page-container drawer-page-content" id="PageContainer">
 
@@ -209,5 +209,18 @@
     <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
     <li id="a11y-selection-message">{{ 'general.accessibility.selection_help' | t }}</li>
   </ul>
+  <!-- https://cdn.shopify.com/s/files/1/0422/7199/8115/files/Gamelle.json?v=1603104806 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js" integrity="sha512-m0RQU4SBx0p/bLwRiI4fJBGRafVLZ4s86wRe1+OAx5EXbcWiS/X1jvYdJQRD8jOoIVl+WTyVeMawUWVCh1O8+Q==" crossorigin="anonymous"></script>
+  <script>
+    let lottieAnim = document.querySelector('.lottie');
+
+    lottie.loadAnimation({
+      container: lottieAnim, // the dom element that will contain the animation
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://cdn.shopify.com/s/files/1/0422/7199/8115/files/Gamelle.json?v=1603104806' // the path to the animation json
+    });
+  </script>
 </body>
 </html>
