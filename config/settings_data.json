@@ -357,7 +357,7 @@
           "e180d6db-4015-41dd-ae42-504ec9e9fe86": {
             "type": "product",
             "settings": {
-              "productRelated": "test-sh"
+              "productRelated": "variant100-product"
             }
           },
           "eec2aa48-2a61-4e77-a23f-1f1153945d8a": {
@@ -602,15 +602,7 @@
       "sections": {
         "header": {
           "type": "header",
-          "settings": {
-            "align_logo": "left",
-            "logo": "",
-            "logo_max_width": 135,
-            "main_linklist": "main-menu",
-            "message": true,
-            "color_bg": "#162950",
-            "color_text": "#ffffff"
-          }
+          "settings": {}
         },
         "hero": {
           "type": "hero",

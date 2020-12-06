@@ -1,0 +1,79 @@
+{%- if section.settings.is_hero_slider and section.blocks.size > 0 -%}
+  <section data-section-id="{{ section.id }}" data-section-type="hero-slider">
+    <div class="heroSlider">
+      {%- for slide in section.blocks -%}
+        <div class="heroSlide__wrapper container">
+          <article class="heroSlide">
+            <div class="heroSlide__content">
+              <h2 class="h1">{{ slide.settings.slide_title }}</h2>
+              <p class="p p--large p--italic">{{ slide.settings.slide_description }}</p>
+              <a class="linkButton linkButton--large" href="{{ slide.settings.slide_link }}">{{ slide.settings.slide_link_text }}</a>
+            </div>
+            <div class="heroSlide__images">
+              {% render 'lazy-img', class: 'heroSlide__image', src: slide.settings.slide_image, alt: slide.settings.slide_title %}
+              {% render 'lazy-img', class: 'heroSlide__watermark', src: slide.settings.slide_watermark, alt: 'Watermark' %}
+            </div>
+          </article>
+        </div>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+
+{% schema %}
+
+{
+  "name": "Hero slider",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "is_hero_slider",
+      "label": "Show hero slider",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "label": "Title",
+          "id": "slide_title",
+          "type": "text"
+        }, {
+          "label": "Short description",
+          "id": "slide_description",
+          "type": "text"
+        }, {
+          "label": "Link",
+          "id": "slide_link",
+          "type": "url"
+        }, {
+          "label": "Link text",
+          "id": "slide_link_text",
+          "type": "text",
+          "default": "learn more"
+        }, {
+          "label": "Image",
+          "id": "slide_image",
+          "type": "image_picker"
+        }, {
+          "label": "Watermark image",
+          "id": "slide_watermark",
+          "type": "image_picker"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero slider",
+      "category": "Sliders"
+    }
+  ]
+}
+
+{% endschema %}
